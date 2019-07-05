@@ -133,7 +133,7 @@ sub sg_LoadFile # Load resource from predefined resource directories (see sg_res
     my $fh;
     for(my $i = 0;($i < scalar(@sg_resdir)); ++$i)
     {
-        return $fh if(open($fh, $mode, $sg_resdir[$i] . $path));
+        return $fh if(open($fh, $mode, $sg_resdir[$i] . "/" . $path));
     }
     die("Error: could not load " . $path . " from predefined paths.\n") unless (defined $fh);
 }

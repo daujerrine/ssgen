@@ -33,4 +33,5 @@ If required, executing:
     sudo make install
 
 in this directory will copy ssgen.pl to /usr/local/bin, rename it to ssgen and
-mark it executable.
+mark it executable. It will also put any resource files into
+/usr/local/share/ssgen.

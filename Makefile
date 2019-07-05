@@ -1,17 +1,17 @@
 EXECDIR := /usr/local/bin
-DATADIR := /usr/share/ssgen
+DATADIR := /usr/local/share/ssgen
 
 PERL := perl
 
-install: ssgen.pl "t_dirindex.xhtml1.0t.html"
+install: ssgen.pl t_dirindex.xhtml1.0t.html
 	mkdir $(DATADIR)
-	cp "t_dirindex.xhtml1.0t.html" $(DATADIR)
+	cp t_dirindex.xhtml1.0t.html $(DATADIR)
 	cp ssgen.pl $(EXECDIR)
-	mv $(INSTALLDIR)/ssgen.pl $(EXECDIR)/ssgen
-	chmod +x $(INSTALLDIR)/ssgen
+	mv $(EXECDIR)/ssgen.pl $(EXECDIR)/ssgen
+	chmod +x $(EXECDIR)/ssgen
 
-uninstall: $(INSTALLDIR)/ssgen
-	rm $(INSTALLDIR)/ssgen
+uninstall: $(EXECDIR)/ssgen
+	rm $(EXECDIR)/ssgen
 	rm -r $(DATADIR)
 
 test: ssgen.pl test/www/dummy test/src/a.sc test/src/b.tm
