@@ -1,0 +1,36 @@
+SSGen - Static Site Generator
+=============================
+Current Version - 0.1.0 NotUsable
+
+SSGen is a program that was made because the author refused to learn or use
+things like Jekyll, Hugo, or whatever there is in the market. A lot of these 
+programs utilise javascript, "web" frameworks, a lot of dependent libraries
+which the author considers "unwanted bloat".
+SSGen aims to be as straightforward as possible in its approach. You let SSGen 
+know about a template, and a set of 'source' files containing information to 
+be pasted on that template, and specify the destination directory where the 
+processed files should be put.
+
+      Source + Template  ----> Desired HTML file
+      File     File
+
+In essence, SSGen is a general template processing program. General in the sense
+that it could be used for things other than html files. The author doesn't 
+know if another similar, more sophisticated program exists or not and is too 
+lazy to look around any longer (the c preprocessor may be one such example but 
+it is specific to c's syntax). However, it does include a few additions that 
+make it differ from a standard templating program.
+
+There are examples available in this folder which describe the syntax and
+working of SSGen.
+
+Installation
+-------------
+This script (ssgen.pl) can be used right out of the box without any additional 
+configuration aside from having perl 5 (v 5.26.1 and above is recommended).
+If required, executing:
+
+    sudo make install
+
+in this directory will copy ssgen.pl to /usr/local/bin, rename it to ssgen and
+mark it executable.
