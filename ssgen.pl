@@ -97,6 +97,12 @@ Options:
 
 my $sg_i_verbose = 0;
 
+my @sg_resdir =
+(
+    "",
+    "/usr/local/share/ssgen"
+);
+
 my %sg_vars = # Key-Value Variables
 (
     "root" => "./www/",
@@ -119,6 +125,17 @@ my $sgm_fdirindex = "t_dirindex.xhtml1.0t.html"; # Default directory index templ
 sub sg_Alert
 {
     print @_ if ($sg_i_verbose);
+}
+
+sub sg_LoadFile # Load resource from predefined resource directories (see sg_resdir)
+{
+    my ($mode, $path) = @_;
+    my $fh;
+    for(my $i = 0;($i < scalar(@sg_resdir)); ++$i)
+    {
+        return $fh if(open($fh, $mode, $sg_resdir[$i] . $path));
+    }
+    die("Error: could not load " . $path . " from predefined paths.\n") unless (defined $fh);
 }
 
 sub sg_Dircmp
@@ -171,7 +188,7 @@ sub sg_GTemplate
             }
             else 
             {
-                die("Key $1 does not exist in input file.");
+                die("Error: Key $1 does not exist in input file.");
             }
         }
         else
@@ -179,12 +196,14 @@ sub sg_GTemplate
             print $outfileh $tline;
         }
     }
+    
+    seek($tfileh, 0, SEEK_SET);
 }
 
 sub sg_GCopy
 {
     my ($src, $dest) = @_;
-    copy($src, $dest) or die("Error could not copy $src to $dest\n")
+    copy($src, $dest) or die("Error: could not copy $src to $dest\n");
 }
 
 sub sg_GFindex
@@ -251,6 +270,8 @@ sub sg_GFindex
             print $outfileh $tline;
         }
     }
+    
+    seek($tfileh, 0, SEEK_SET);
 }
 
 #TODO: Possibly rework function
@@ -416,13 +437,14 @@ sub sg_Generate
             sg_GCopy($sg_vars{root} . $i->[0], $sg_vars{root} . $i->[1]);
         }
         
+        $tfileh = sg_LoadFile("<", $sgm_fdirindex);
+        
         foreach my $i ( @{ $ftable{findex} })
         {
             my $outfilen;
             my $dirh;
             
             sg_Alert("Dir: " . $i->[0] . "\n");
-            open($tfileh, "<", $sgm_fdirindex) or die("Error: Could not open " . $i->[0] . "\n");
             opendir($dirh, $sg_vars{root} . $i->[0]) or die("Error: Could not open " . $i->[0] . "\n");
             if(exists $i->[1])
             {
@@ -435,10 +457,11 @@ sub sg_Generate
             
             open($outfileh, ">", $sg_vars{root} . $outfilen) or die("Error: Could not open " . $outfilen . "\n");
             sg_GFindex($i->[0], $dirh, $outfileh, $tfileh);
-            close($tfileh);
             close($dirh);
             close($outfileh);
         }
+        
+        close($tfileh);
     }
 }
 
