@@ -4,7 +4,7 @@ Current Version - 0.1.0 NotUsable
 
 SSGen is a program that was made because the author refused to learn or use
 things like Jekyll, Hugo, or whatever there is in the market. A lot of these 
-programs utilise javascript, "web" frameworks, a lot of dependent libraries
+programs utilise javascript, web frameworks and a lot of dependent libraries
 which the author considers "unwanted bloat".
 SSGen aims to be as straightforward as possible in its approach. You let SSGen 
 know about a template, and a set of 'source' files containing information to 
